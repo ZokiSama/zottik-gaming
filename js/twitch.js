@@ -29,6 +29,7 @@ const userNames = [
   "khadhd",
   "cgjimster",
   "matthsimon",
+  "maltharion",
   "overwatchcontenders",
   "aimbotcalvin",
   "overwatchleague",
@@ -50,6 +51,7 @@ loadUsers(userNames).then(users =>
       console.log(users[user].stream);
       if (users[user].stream != 'offline'){
         viewer_count.push(users[user].stream.viewer_count)
+        $('#online').append(`<li>${users[user].display_name}</li>`)
       }
     }
     mostViewers = Math.max.apply(Math, viewer_count)
