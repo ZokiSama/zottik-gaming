@@ -2,18 +2,6 @@ const key = "5wzdv2po34437rxy6wjkpvc2jj0x8o";
 const urlUsers = "https://api.twitch.tv/helix/users";
 const urlStreams = "https://api.twitch.tv/helix/streams";
 
-const liveStreamHTML = (channelName) => {
-  return $('#twitch-embed').html(`
-  <iframe
-    class="embed-responsive-item"
-    src="https://player.twitch.tv/?channel=${channelName}&muted=true"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen="true">
-  </iframe>
-  `)
-}
-
 const loadData = (url, key) => fetch(url, {
   headers: new Headers({
     'client-ID': key
@@ -54,19 +42,36 @@ loadUsers(userNames).then(users =>
   ])
 ).then(zipUserStream).then(
   users => {
+    let viewer_count = [];
+    let mostViewers = NaN;
 
+    console.log(users);
     for (const user in users) {
       console.log(users[user].stream);
-      if (users[user].stream !== offline){
-        liveStreamHTML(users[user].login);
-      } 
-      else {
-        $('#offline').html(`
-          <h3>${users[user].display_name}</h3>
-        `);
+      if (users[user].stream != 'offline'){
+        viewer_count.push(users[user].stream.viewer_count)
       }
     }
-    console.log(users)
-
+    mostViewers = Math.max.apply(Math, viewer_count)
+    for (const user in users) {
+      if (users[user].stream.viewer_count === mostViewers){
+        liveStreamHTML(users[user].display_name);
+      }
+    }
+    
+    console.log(mostViewers);
   }
 )
+
+// Template for embedding Twitch stream
+const liveStreamHTML = (channelName) => {
+  return $('#twitch-embed').html(`
+  <iframe
+    class="embed-responsive-item"
+    src="https://player.twitch.tv/?channel=${channelName}&muted=true"
+    frameborder="0"
+    scrolling="no"
+    allowfullscreen="true">
+  </iframe>
+  `)
+}
