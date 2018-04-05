@@ -6,7 +6,7 @@ const liveStreamHTML = (channelName) => {
   return $('#twitch-embed').html(`
   <iframe
     class="embed-responsive-item"
-    src="http://player.twitch.tv/?channel=${channelName}&muted=true"
+    src="https://player.twitch.tv/?channel=${channelName}&muted=true"
     frameborder="0"
     scrolling="no"
     allowfullscreen="true">
