@@ -3,7 +3,11 @@ body {
   color: aliceblue;
   padding: 0;
   margin: 0;
-  padding-top: 54px;
+}
+
+.mainnav {
+  box-shadow: 1px 0 1px #14171b;
+  margin-bottom: 10px;
 }
 
 .seperator {
