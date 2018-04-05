@@ -21,7 +21,9 @@ const zipUserStream = (array) => {
   const users = array[0];
   const streams = array[1];
 
-  return users.map(user => Object.assign({}, user, {stream: streams.find(stream => stream.user_id === user.id) || "offline"}))
+  return users.map(user => Object.assign({}, user, {
+    stream: streams.find(stream => stream.user_id === user.id) || "offline"
+  }))
 }
 
 const userNames = [
@@ -49,18 +51,24 @@ loadUsers(userNames).then(users =>
     console.log(users);
     for (const user in users) {
       console.log(users[user].stream);
-      if (users[user].stream != 'offline'){
+      if (users[user].stream != 'offline') {
         viewer_count.push(users[user].stream.viewer_count)
-        $('#online').append(`<li>${users[user].display_name}</li>`)
+        $('.streamCarousel').append(`
+          <div class="carousel-item">
+            <img class="d-block col-3 img-fluid" src="${users[user].profile_image_url}">
+          </div>
+        `)
+        // ${users[user].display_name}
       }
     }
+
     mostViewers = Math.max.apply(Math, viewer_count)
     for (const user in users) {
-      if (users[user].stream.viewer_count === mostViewers){
+      if (users[user].stream.viewer_count === mostViewers) {
         liveStreamHTML(users[user].display_name);
       }
     }
-    
+    sortCarousel();
     console.log(mostViewers);
   }
 )
@@ -76,4 +84,25 @@ const liveStreamHTML = (channelName) => {
     allowfullscreen="true">
   </iframe>
   `)
+}
+
+const sortCarousel = () => {
+  $(".streamCarousel .carousel-item:first").addClass("active");
+
+  $('.carousel .carousel-item').each(function () {
+    var next = $(this).next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+
+    for (var i = 0; i < 2; i++) {
+      next = next.next();
+      if (!next.length) {
+        next = $(this).siblings(':first');
+      }
+      
+      next.children(':first-child').clone().appendTo($(this));
+    }
+  });
 }
