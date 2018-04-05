@@ -32,10 +32,10 @@ const userNames = [
   "cgjimster",
   "matthsimon",
   "maltharion",
-  "overwatchcontenders",
-  "aimbotcalvin",
-  "overwatchleague",
-  "pgl_dota2"
+  //"overwatchcontenders",
+  //"aimbotcalvin",
+  //"overwatchleague",
+  //"pgl_dota2"
 ];
 
 loadUsers(userNames).then(users =>
