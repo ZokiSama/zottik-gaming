@@ -32,10 +32,11 @@ const userNames = [
   "cgjimster",
   "matthsimon",
   "maltharion",
-  //"overwatchcontenders",
-  //"aimbotcalvin",
-  //"overwatchleague",
-  //"pgl_dota2"
+  "overwatchcontenders",
+  "aimbotcalvin",
+  "overwatchleague",
+  "pgl_dota2",
+  "reallynavi"
 ];
 
 loadUsers(userNames).then(users =>
@@ -49,25 +50,26 @@ loadUsers(userNames).then(users =>
     let mostViewers = NaN;
 
     console.log(users);
-    for (const user in users) {
-      console.log(users[user].stream);
-      if (users[user].stream != 'offline') {
-        viewer_count.push(users[user].stream.viewer_count)
+
+    users.forEach(user => {
+      console.log(user);
+      if (user.stream != 'offline') {
+        viewer_count.push(user.stream.viewer_count)
         $('.streamCarousel').append(`
           <div class="carousel-item">
-            <img class="d-block col-3 img-fluid" src="${users[user].profile_image_url}">
+            <img class="d-block col-3 img-fluid" src="${user.profile_image_url}">
           </div>
         `)
-        // ${users[user].display_name}
       }
-    }
+
+    });
 
     mostViewers = Math.max.apply(Math, viewer_count)
-    for (const user in users) {
-      if (users[user].stream.viewer_count === mostViewers) {
-        liveStreamHTML(users[user].display_name);
+    users.forEach(user => {
+      if (user.stream.viewer_count === mostViewers) {
+        liveStreamHTML(user.display_name);
       }
-    }
+    });
     sortCarousel();
     console.log(mostViewers);
   }
