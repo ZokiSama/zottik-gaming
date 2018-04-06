@@ -39,14 +39,15 @@ const userNames = [
   "reallynavi"
 ];
 
-$().ready(function () {
-  loadUsers(userNames).then(users =>
-    Promise.all([
-      users,
-      loadStreams(users)
-    ])
-  ).then(zipUserStream).then(
-    users => {
+
+loadUsers(userNames).then(users =>
+  Promise.all([
+    users,
+    loadStreams(users)
+  ])
+).then(zipUserStream).then(
+  users => {
+    $().ready(function () { // Wait for page to load completely
       let topUser = {
         stream: {
           viewer_count: 0
@@ -66,14 +67,15 @@ $().ready(function () {
         `);
         }
       });
+
       liveStreamHTML(topUser.display_name);
 
-      $("img").on('click', (e) => {
+      $(".broadcast").on('click', (e) => {
         liveStreamHTML(e.currentTarget.id);
       });
-    }
-  );
-});
+    });
+  }
+);
 
 // Template for embedding Twitch stream
 const liveStreamHTML = (channelName) => {
