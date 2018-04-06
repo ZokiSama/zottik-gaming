@@ -63,7 +63,7 @@ loadUsers(userNames).then(users =>
           $('.broadcasters').append(`
           <div id="${user.display_name}" class="broadcast">
             <img class="rounded broadcastIMG" src="${user.profile_image_url}">
-            <div class="row broadcast staus">
+            <div class="row broadcast status">
               <div class="status-indicator"></div>
               <div class="status-viewers">${user.stream.viewer_count}</div>
             </div>
