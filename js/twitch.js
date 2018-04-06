@@ -39,38 +39,41 @@ const userNames = [
   "reallynavi"
 ];
 
-loadUsers(userNames).then(users =>
-  Promise.all([
-    users,
-    loadStreams(users)
-  ])
-).then(zipUserStream).then(
-  users => {
-    let topUser = {stream:{viewer_count:0}};
-
-    users.forEach(user => {
-      if (user.stream != 'offline') {
-        if (topUser.stream.viewer_count < user.stream.viewer_count) {
-          topUser = user;
-          console.log(topUser)
+$().ready(function () {
+  loadUsers(userNames).then(users =>
+    Promise.all([
+      users,
+      loadStreams(users)
+    ])
+  ).then(zipUserStream).then(
+    users => {
+      let topUser = {
+        stream: {
+          viewer_count: 0
         }
+      };
 
-        $('.streamCarousel').append(`
-          <div class="carousel-item">
-            <img class="d-block col-3 img-fluid ${user.id}" src="${user.profile_image_url}">
+      users.forEach(user => {
+        if (user.stream != 'offline') {
+          if (topUser.stream.viewer_count < user.stream.viewer_count) {
+            topUser = user;
+          }
+
+          $('.broadcasters').append(`
+          <div>
+            <img id="${user.display_name}" class="rounded broadcast" src="${user.profile_image_url}">
           </div>
-        `)
-      }
+        `);
+        }
+      });
+      liveStreamHTML(topUser.display_name);
 
-    });
-    
-    liveStreamHTML(topUser.display_name);
-    $(".streamCarousel .carousel-item:first").addClass("active");
-    sortCarousel();
-
-
-  }
-)
+      $("img").on('click', (e) => {
+        liveStreamHTML(e.currentTarget.id);
+      });
+    }
+  );
+});
 
 // Template for embedding Twitch stream
 const liveStreamHTML = (channelName) => {
@@ -83,24 +86,4 @@ const liveStreamHTML = (channelName) => {
     allowfullscreen="true">
   </iframe>
   `)
-}
-
-const sortCarousel = () => {
-  
-  $('.carousel .carousel-item').each(function () {
-    var next = $(this).next();
-    if (!next.length) {
-      next = $(this).siblings(':first');
-    }
-    next.children(':first-child').clone().appendTo($(this));
-
-    for (var i = 0; i < 2; i++) {
-      next = next.next();
-      if (!next.length) {
-        next = $(this).siblings(':first');
-      }
-      
-      next.children(':first-child').clone().appendTo($(this));
-    }
-  });
 }
