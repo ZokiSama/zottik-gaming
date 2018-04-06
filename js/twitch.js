@@ -46,15 +46,17 @@ loadUsers(userNames).then(users =>
   ])
 ).then(zipUserStream).then(
   users => {
-    let viewer_count = [];
-    let mostViewers = NaN;
-
-    console.log(users);
+    let topUser = "";
+    let mostViewers = 0;
 
     users.forEach(user => {
-      console.log(user);
+      
       if (user.stream != 'offline') {
-        viewer_count.push(user.stream.viewer_count)
+        if (mostViewers < user.stream.viewer_count) {
+          mostViewers = user.stream.viewer_count;
+          topUser = user.display_name;
+        }
+
         $('.streamCarousel').append(`
           <div class="carousel-item">
             <img class="d-block col-3 img-fluid" src="${user.profile_image_url}">
@@ -63,15 +65,10 @@ loadUsers(userNames).then(users =>
       }
 
     });
+    $(".streamCarousel .carousel-item:first").addClass("active");
+    liveStreamHTML(topUser);
 
-    mostViewers = Math.max.apply(Math, viewer_count)
-    users.forEach(user => {
-      if (user.stream.viewer_count === mostViewers) {
-        liveStreamHTML(user.display_name);
-      }
-    });
     sortCarousel();
-    console.log(mostViewers);
   }
 )
 
@@ -89,7 +86,6 @@ const liveStreamHTML = (channelName) => {
 }
 
 const sortCarousel = () => {
-  $(".streamCarousel .carousel-item:first").addClass("active");
 
   $('.carousel .carousel-item').each(function () {
     var next = $(this).next();
