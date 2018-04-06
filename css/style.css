@@ -16,7 +16,31 @@ body {
 }
 
 .broadcast {
+  margin: 0 5px;
+  position: relative;
+}
+
+.broadcastIMG {
   width: 150px;
-  padding-left: 2px;
-  padding-right: 2px;
+}
+
+.status {
+  display: inline-flex;
+  position: absolute;
+  align-content: center !important;
+  bottom: 0;
+  top: auto;
+  margin-left: .5rem;
+}
+
+.status-indicator {
+  background-color: red;
+  width: .8rem;
+  height: .8rem;
+  border-radius: 50%;
+}
+
+.status-viewers {
+  width: .8rem;
+  height: .8rem;
 }
