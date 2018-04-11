@@ -27,8 +27,9 @@ const zipUserStream = (array) => {
 }
 
 const userNames = [
-  "zokisama",
+  "nikcs",
   "khadhd",
+  "zokisama",
   "cgjimster",
   "matthsimon",
   "maltharion",
