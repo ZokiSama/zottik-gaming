@@ -10,6 +10,10 @@ body {
   margin-bottom: 10px;
 }
 
+.nav-op {
+  opacity: .8;
+}
+
 .seperator {
   border-bottom-color: #293139;
   flex: 100px;
@@ -22,6 +26,11 @@ body {
 
 .broadcastIMG {
   width: 150px;
+  opacity: 0.6;
+}
+
+.broadcastIMG-active {
+  opacity: 1;
 }
 
 .status {

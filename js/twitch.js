@@ -32,11 +32,9 @@ const userNames = [
   "cgjimster",
   "matthsimon",
   "maltharion",
-  "overwatchcontenders",
-  "aimbotcalvin",
+  "mussealamide",
   "overwatchleague",
-  "pgl_dota2",
-  "reallynavi"
+  "overwatchcontenders",
 ];
 
 
@@ -53,7 +51,6 @@ loadUsers(userNames).then(users =>
           viewer_count: 0
         }
       };
-
       users.forEach(user => {
         if (user.stream != 'offline') {
           if (topUser.stream.viewer_count < user.stream.viewer_count) {
@@ -72,7 +69,9 @@ loadUsers(userNames).then(users =>
         }
       });
 
-      liveStreamHTML(topUser.display_name);
+      if(topUser.display_name !== undefined ) {
+        liveStreamHTML(topUser.display_name);
+      }
 
       $(".broadcast").on('click', (e) => {
         liveStreamHTML(e.currentTarget.id);
