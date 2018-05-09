@@ -34,8 +34,8 @@ const userNames = [
   "matthsimon",
   "maltharion",
   "mussealamide",
-  "overwatchleague",
-  "overwatchcontenders",
+  "dakotaz",
+  "Jagrawr",
 ];
 
 
