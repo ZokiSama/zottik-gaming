@@ -29,13 +29,13 @@ const zipUserStream = (array) => {
 const userNames = [
   "nikcs",
   "khadhd",
-  "zokisama",
+  "zokiio",
   "cgjimster",
   "matthsimon",
   "maltharion",
   "mussealamide",
-  "dakotaz",
-  "Jagrawr",
+  "stalli_8",
+  "spodergirrl",
 ];
 
 
